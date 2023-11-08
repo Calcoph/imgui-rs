@@ -309,16 +309,6 @@ fn handle_key_modifier(io: &mut Io, key: PhysicalKey, down: bool) {
     }
 }
 
-fn handle_received_character(io: &mut Io, text: SmolStr) {
-    for ch in text.chars() {
-        // Exclude the backspace key ('\u{7f}'). Otherwise we will insert this char and then
-        // delete it.
-        if ch != '\u{7f}' {
-            io.add_input_character(ch)
-        }
-    }
-}
-
 impl WinitPlatform {
     /// Initializes a winit platform instance and configures imgui.
     ///
@@ -502,10 +492,6 @@ impl WinitPlatform {
                 // Add main key event
                 if let Some(key) = to_imgui_key(key) {
                     io.add_key_event(key, pressed);
-                }
-
-                if let Some(text) = text {
-                    handle_received_character(io, text)
                 }
             }
             WindowEvent::CursorMoved { position, .. } => {
