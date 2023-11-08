@@ -504,7 +504,7 @@ impl WinitPlatform {
                     io.add_key_event(key, pressed);
                 }
 
-                if let Some(text) = text {
+                if let Some(text) = text && pressed {
                     handle_received_character(io, text)
                 }
             }
