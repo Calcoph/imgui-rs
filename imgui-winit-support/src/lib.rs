@@ -504,8 +504,10 @@ impl WinitPlatform {
                     io.add_key_event(key, pressed);
                 }
 
-                if let Some(text) = text && pressed {
-                    handle_received_character(io, text)
+                if pressed {
+                    if let Some(text) = text {
+                        handle_received_character(io, text)
+                    }
                 }
             }
             WindowEvent::CursorMoved { position, .. } => {
